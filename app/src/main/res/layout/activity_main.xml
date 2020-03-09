@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.example.drawingdemo.PaintView
+        android:id="@+id/paintView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/purple"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@color/colorPrimary" />
+
+    <ImageView
+        android:id="@+id/cyan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/purple"
+        app:layout_constraintStart_toEndOf="@+id/purple"
+        app:layout_constraintTop_toTopOf="@+id/purple"
+        app:srcCompat="@color/colorAccent" />
+
+    <ImageView
+    android:id="@+id/blue"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginLeft="8dp"
+    app:layout_constraintBottom_toBottomOf="@+id/purple"
+    app:layout_constraintStart_toEndOf="@+id/cyan"
+    app:layout_constraintTop_toTopOf="@+id/purple"
+    app:srcCompat="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/clr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="clear"
+        app:layout_constraintBottom_toBottomOf="@+id/purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/purple" />
+
+    <ImageView
+        android:id="@+id/eraser"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/clr"
+        app:layout_constraintEnd_toStartOf="@+id/clr"
+        app:layout_constraintTop_toTopOf="@+id/clr"
+        app:srcCompat="@drawable/erser_icon" />
+
+    <TextView
+        android:id="@+id/brushSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:drawableLeft="@drawable/ic_brush_black_24dp"        app:layout_constraintBottom_toBottomOf="@+id/eraser"
+        app:layout_constraintEnd_toStartOf="@+id/eraser"
+        app:layout_constraintTop_toTopOf="@+id/eraser" />
+
+    <include
+        android:id="@+id/selectSize"
+        android:visibility="gone"
+        layout="@layout/select_brush_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/brushSize"
+        app:layout_constraintEnd_toStartOf="@+id/eraser"
+        app:layout_constraintStart_toStartOf="@+id/brushSize" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

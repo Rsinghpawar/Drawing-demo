@@ -66,7 +66,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         save.setOnClickListener {
-            Toast.makeText(this, "Pending", Toast.LENGTH_SHORT).show()
+
+            canvas.saveImage()
+//            val fileName = "${Environment.getExternalStorageDirectory()}/test.png"
+//            val stream = FileOutputStream(fileName)
+//           // Toast.makeText(this, "${canvas.width} ${canvas.height} ", Toast.LENGTH_LONG ).show()
+//            val bmp = Bitmap.createBitmap(canvas.measuredWidth, canvas.measuredHeight, Bitmap.Config.ARGB_8888)
+//
+    //            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    //            stream.close()
+//            Toast.makeText(this, "file saved $fileName", Toast.LENGTH_SHORT).show()
             //canvas.
         }
 

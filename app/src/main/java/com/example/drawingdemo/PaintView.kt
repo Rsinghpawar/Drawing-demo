@@ -2,11 +2,13 @@ package com.example.drawingdemo
 
 import android.content.Context
 import android.graphics.*
+import android.os.Environment
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import java.io.FileOutputStream
 
 
 class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs ) {
@@ -118,7 +120,14 @@ class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs 
         drawPaint!!.strokeWidth = BRUSH_SIZE
         drawPaint!!.color = PAINT_COLOR // for changing color
 
-        canvas.drawBitmap(canvasBitmap!!, 0f, 0f, canvasPaint)
+        canvas.drawBitmap(canvasBitmap!!, 0f, 0f, drawPaint)
         canvas.drawPath(drawPath!!, drawPaint!!)
+    }
+
+    fun saveImage ()  {
+        val fileName = "${Environment.getExternalStorageDirectory()}/test.png"
+        val stream = FileOutputStream(fileName)
+        canvasBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            stream.close()
     }
 }

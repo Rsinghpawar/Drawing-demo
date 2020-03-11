@@ -65,19 +65,27 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Size must be in range of 1 to 50" , Toast.LENGTH_SHORT).show()
         }
 
-        save.setOnClickListener {
-
-            canvas.saveImage()
-//            val fileName = "${Environment.getExternalStorageDirectory()}/test.png"
-//            val stream = FileOutputStream(fileName)
-//           // Toast.makeText(this, "${canvas.width} ${canvas.height} ", Toast.LENGTH_LONG ).show()
-//            val bmp = Bitmap.createBitmap(canvas.measuredWidth, canvas.measuredHeight, Bitmap.Config.ARGB_8888)
-//
-    //            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
-    //            stream.close()
-//            Toast.makeText(this, "file saved $fileName", Toast.LENGTH_SHORT).show()
-            //canvas.
+        undo.setOnClickListener {
+            canvas.undo()
         }
+
+        redo.setOnClickListener {
+            canvas.redo()
+        }
+
+//        save.setOnClickListener {
+//
+//            canvas.saveImage()
+////            val fileName = "${Environment.getExternalStorageDirectory()}/test.png"
+////            val stream = FileOutputStream(fileName)
+////           // Toast.makeText(this, "${canvas.width} ${canvas.height} ", Toast.LENGTH_LONG ).show()
+////            val bmp = Bitmap.createBitmap(canvas.measuredWidth, canvas.measuredHeight, Bitmap.Config.ARGB_8888)
+////
+//    //            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//    //            stream.close()
+////            Toast.makeText(this, "file saved $fileName", Toast.LENGTH_SHORT).show()
+//            //canvas.
+//        }
 
     }
 }

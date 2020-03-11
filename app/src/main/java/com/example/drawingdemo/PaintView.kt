@@ -19,6 +19,10 @@ class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs 
         private var BRUSH_SIZE = 25F
     }
 
+    private lateinit var paths : HashMap<Path, Paint>
+
+    private lateinit var undonePaths : HashMap<Path, Paint>
+
     private var currentColor = -16524603
 
     //drawing path
@@ -60,6 +64,8 @@ class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs 
         drawPaint!!.style = Paint.Style.STROKE
         drawPaint!!.strokeJoin = Paint.Join.ROUND
         drawPaint!!.strokeCap = Paint.Cap.ROUND
+        paths = HashMap<Path,Paint>()
+        undonePaths = HashMap<Path, Paint>()
         canvasPaint = Paint(Paint.DITHER_FLAG)
     }
 
@@ -92,25 +98,32 @@ class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 drawPath!!.moveTo(touchX, touchY)
+                invalidate()
             }
             MotionEvent.ACTION_MOVE -> {
                 Log.d("touch", "Moving {$touchX} , { $touchY }")
                 drawPath!!.lineTo(touchX, touchY)
+                invalidate()
             }
             MotionEvent.ACTION_UP -> {
                // drawPath!!.lineTo(touchX, touchY)
                 drawCanvas!!.drawPath(drawPath!!, drawPaint!!)
-                drawPath!!.reset()
+                paths.put(drawPath!!, drawPaint!!)
+                Log.d("pathsSize", "${paths.size}")
+                drawPath = Path()
+                invalidate()
             }
             else -> return false
         }
         //redraw
-        invalidate()
+       // invalidate()
         return true
     }
 
     fun clear() {
         drawCanvas!!.drawColor(Color.WHITE)
+        paths.clear()
+        undonePaths.clear()
         invalidate()
         Log.d("Cls", "CLR")
     }
@@ -120,7 +133,14 @@ class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs 
         drawPaint!!.strokeWidth = BRUSH_SIZE
         drawPaint!!.color = PAINT_COLOR // for changing color
 
-        canvas.drawBitmap(canvasBitmap!!, 0f, 0f, drawPaint)
+        //canvas.drawBitmap(canvasBitmap!!, 0f, 0f, canvasPaint)
+
+        for ( p in paths  ) {
+            canvas.drawBitmap(canvasBitmap!!, 0f, 0f, p.value)
+            canvas.drawPath(p.key, p.value)
+        }
+        Log.d("pathsSizeOnDraw", "${paths.size}")
+        //Toast.makeText(context, paths.size.toString(), Toast.LENGTH_SHORT).show()
         canvas.drawPath(drawPath!!, drawPaint!!)
     }
 
@@ -129,5 +149,24 @@ class PaintView (context: Context, attrs: AttributeSet?) : View( context, attrs 
         val stream = FileOutputStream(fileName)
         canvasBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.close()
+    }
+
+    fun undo () {
+        Log.d("pathsSizeUndo", "${paths.size}")
+        if ( paths.size > 0 ) {
+            //undonePaths.put(paths!!.remove(paths!!.size - 1), )
+        }else {
+            Toast.makeText(context, "nothing to UNDO", Toast.LENGTH_SHORT).show()
+        }
+        invalidate()
+    }
+
+    fun redo () {
+        if ( undonePaths.size > 0 ) {
+           // paths.add(undonePaths.removeAt(undonePaths.size - 1))
+        }else {
+            Toast.makeText(context, "nothing to REDO", Toast.LENGTH_SHORT).show()
+        }
+        invalidate()
     }
 }
